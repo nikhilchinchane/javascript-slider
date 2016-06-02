@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slider Demo</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	
+	<style type="text/css">
+			.slider-contaniner > .slider-item{
+				 
+               /*  opacity: 0; */
+                padding: 5px;
+                color: #600;
+                -webkit-transition: 350ms display-none-transition;
+                background-color: #CEC;
+                display: none;
+                
+			}
+
+			.slider-contaniner >.active{
+				
+				/* opacity: 1; */
+				 
+			}
+			.slider-contaniner:hover{
+				cursor: pointer;
+			}
+			.slider-contaniner .slider-item h3{
+				font-size: 45px;
+				text-align: center;
+				font-family: cursive;
+			}
+	</style>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+</head>
+<body>
+		<div class="container">
+				<div class="row">
+						<div class="col-sm-12">
+							<div class="slider-contaniner">
+								<div class="slider-item active">
+									<h3>Slider 1</h3>
+								</div>
+								<div class="slider-item">
+									<h3>Slider 2</h3>
+								</div>
+								<div class="slider-item">
+										<h3>Slider 3</h3>
+								</div>
+								<div class="slider-item">
+									<h3>Slider 4</h3>
+								</div>
+								<div class="slider-item">
+										<h3>Slider 5</h3>
+								</div><div class="slider-item">
+										<h3>Slider 6</h3>
+								</div>
+								<div class="slider-item">
+										<h3>Slider 7</h3>
+								</div>
+
+							</div>
+						</div>
+
+				</div>
+				
+		</div>
+		
+
+		<script type="text/javascript">
+
+
+			
+
+	  		
+
+
+			var MySlider = function(){
+
+				var $set = $('.slider-contaniner').children('.slider-item');
+		  		/*$container =$('.slider-contaniner');
+		  		$container.hover(function(){$flag = false;console.log($flag);},function(){$flag = true;})*/
+				var len = $set.length;
+				var $flag =true;
+
+				this.updateFlag = function(val=true){
+					$flag = val;
+					console.log($flag);
+				}
+
+				this.showFlag = function(){
+					console.log($flag);
+				}				
+
+				this.start = function(){
+					
+					//console.log("Start");
+					setInterval(function(){
+					if($flag === true){
+	  				$set.each(function (i,e) {
+	  				//console.log(e);
+	  				
+	  				if($(this).hasClass('active')){
+	  				console.log(i);
+	  				if(i === len - 1) {
+           		   		console.log('Last item');
+           		   		i = -1;
+      				}
+	  				next = ($set.eq(i+1));
+					$(next).addClass('active');
+					//$(next).fadeIn(2000,);
+					//console.log($(this).text());
+					$(this).fadeOut(500,function(){$(next).fadeIn(2000)});
+					$(this).removeClass('active');
+					return false;
+						}
+					});
+					}
+
+					}, 3000);
+
+				}
+
+			}
+
+			
+
+			$(function(){
+				var slider = new MySlider();
+				slider.updateFlag(true);
+				slider.start();
+
+				$container =$('.slider-contaniner');
+		  		$container.hover(function(){slider.updateFlag(false)},function(){slider.updateFlag(true);})
+
+			})
+
+			
+		</script>
+</body>
+</html>
